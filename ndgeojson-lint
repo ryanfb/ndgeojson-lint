@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+var ndjson = require('ndjson'),
+    geojsonhint = require('@mapbox/geojsonhint'),
+    fs = require('fs')
+
+all_errors = 0
+all_json = 0
+input_stream = null
+
+if(process.argv.length <= 2) {
+  input_stream = process.stdin
+}
+else {
+  input_stream = fs.createReadStream(process.argv[2])
+}
+
+input_stream
+  .on('close', function() {
+    console.log(all_errors + " errors found in " + all_json + " GeoJSON objects")
+    if (all_errors > 0) {
+      process.exitCode = 1
+    }
+  })
+  .pipe(ndjson.parse())
+  .on('data', function(obj) {
+    all_json++
+    errors = geojsonhint.hint(obj)
+    if (errors.length > 0) {
+      console.log(obj)
+      console.log(errors)
+      all_errors++
+    }
+  })

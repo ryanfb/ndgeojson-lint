@@ -1,0 +1,26 @@
+{
+  "name": "ndgeojson-lint",
+  "version": "0.0.1",
+  "description": "A lint tool for newline-delimited GeoJSON streams.",
+  "keywords": [
+    "ndjson",
+    "geojson"
+  ],
+  "bin": {
+    "ndgeojson-lint": "ndgeojson-lint"
+  },
+  "scripts": {
+    "postpublish": "git push && git push --tags"
+  },
+  "author": "Ryan Baumann",
+  "homepage": "https://github.com/ryanfb/ndgeojson-lint",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryanfb/ndgeojson-lint.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@mapbox/geojsonhint": "^2.0.0",
+    "ndjson": "^1.5.0"
+  }
+}
